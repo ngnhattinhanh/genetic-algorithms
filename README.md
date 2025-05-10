@@ -33,7 +33,7 @@ We applied Genetic Algorithm to search for optimal hyperparameters of machine le
 ### Termination
   - The algorithm stops after a fixed number of generations or when no significant improvement is observed for a certain number of iterations.
 
-## Pseudo Code
+## Python Code Sample
 ```python
 def __init__(self, fitness_func, param_ranges, population_size=20, generations=50): 
         self.fitness_func = fitness_func 

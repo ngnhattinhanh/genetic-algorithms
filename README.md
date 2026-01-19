@@ -32,50 +32,26 @@ We applied Genetic Algorithm to search for optimal hyperparameters of machine le
 
 ### Termination
   - The algorithm stops after a fixed number of generations or when no significant improvement is observed for a certain number of iterations.
+## Diagram
+<img width="450" height="442" alt="image" src="https://github.com/user-attachments/assets/54f6df2a-2db7-4182-bcb8-72d6b1416da8" />
 
-## Python Code Sample
+## Pseudocode
 ```python
-def __init__(self, fitness_func, param_ranges, population_size=20, generations=50): 
-        self.fitness_func = fitness_func 
-        self.param_ranges = param_ranges 
-        self.population_size = population_size 
-        self.generations = generations 
-
-def initialize_population(self): 
-        population = [] 
-        for _ in range(self.population_size): 
-            individual = [np.random.uniform(low, high) for low, high in self.param_ranges] 
-            population.append(individual) 
-        return np.array(population) 
-
-def select_parents(self, population, fitness): 
-        sorted_idx = np.argsort(fitness) 
-        return population[sorted_idx][:2] 
- 
-def crossover(self, parent1, parent2): 
-        crossover_point = np.random.randint(len(parent1)) 
-        child1 = np.concatenate((parent1[:crossover_point], parent2[crossover_point:])) 
-        child2 = np.concatenate((parent2[:crossover_point], parent1[crossover_point:])) 
-        return child1, child2 
-
-def mutate(self, individual): 
-        mutation_idx = np.random.randint(len(individual)) 
-        individual[mutation_idx] = np.random.uniform(*self.param_ranges[mutation_idx]) 
-        return individual 
-
-def run(self): 
-        population = self.initialize_population() 
-        for generation in range(self.generations): 
-            fitness = np.array([self.fitness_func(ind) for ind in population]) 
-            parents = self.select_parents(population, fitness) 
-            next_population = [] 
-            for _ in range(self.population_size // 2): 
-                child1, child2 = self.crossover(parents[0], parents[1]) 
-                next_population.extend([self.mutate(child1), self.mutate(child2)]) 
-            population = np.array(next_population) 
-        best_individual = population[np.argmin([self.fitness_func(ind) for ind in population])] 
-        return best_individual
+Begin
+    k = 0
+    P(k) = form_initial_population (N)
+    fs(k) = evaluate_population(P(k))
+    while not (termination_criteria)
+        k = k + 1
+        M(k) = select_parent(P(k-1), fs(k-1))
+        P(k) = crossover(M(k), Pc)
+        P(k) = mutation(P(k), Pm)
+        fs(k) = evaluate_population(P(k))
+        [better, worse, average] = save_solution(P(k), fs(k))
+    end
+End
 ```
+
 ## Result 
 ### Random Forest (Titanic)
 | Model        | Accuracy   |
